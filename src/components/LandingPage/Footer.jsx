@@ -7,7 +7,7 @@ import { clientDetails, logo } from "../../constants";
 
 const Footer = () => {
   return (
-    <div className="bg-[#2b0a05] py-[3rem] text-white">
+    <div className="bg-gradient-to-r from-[#202361] to-[#690054] py-[3rem] text-white w-full">
       <div className="px-5 sm:px-10 flex flex-col gap-3 sm:flex-row items-center justify-between">
         <div className="flex flex-col gap-3 items-start">
           <img

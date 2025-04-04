@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { clientDetails } from "../constants";
+import axios from "axios";
 
 const Form = () => {
   const { setSpinner } = useContext(SpinnerContext);
@@ -26,26 +27,6 @@ const Form = () => {
       message: "",
     },
   });
-  //   const [dropdownOpen, setDropdownOpen] = useState(false);
-  //   const [selectedService, setSelectedService] = useState(allServices[0].title);
-  //   const dropdownRef = useRef(null);
-
-  //   useEffect(() => {
-  //     // Handler for clicking outside of the dropdown
-  //     const handleClickOutside = (event) => {
-  //       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //         setDropdownOpen(false); // Close the dropdown
-  //       }
-  //     };
-
-  //     // Add event listener
-  //     document.addEventListener("mousedown", handleClickOutside);
-
-  //     // Cleanup event listener on component unmount
-  //     return () => {
-  //       document.removeEventListener("mousedown", handleClickOutside);
-  //     };
-  //   }, []);
 
   // handle form submit click
   const handleFormSubmit = async (values) => {
@@ -61,29 +42,26 @@ const Form = () => {
       to: clientDetails.email,
       subject: values.subject,
       body: emailBody,
+      name:"Alphawavesolutions"
     };
 
-    await fetch("https://smtp-api-tawny.vercel.app/send-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.error) {
-          toast.error(res.error);
-        } else {
-          toast.success("Email sent successfully");
-          reset();
-        //   navigate("/thank-you");
-        }
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      })
-      .finally(() => setSpinner(false));
+    try {
+      const res = await axios.post(
+        "https://send-mail-redirect-boostmysites.vercel.app/send-email",
+        payload
+      );
+      if (res.data.success) {
+        toast.success("Email sent successfully");
+        reset();
+        navigate("/thank-you");
+      } else {
+        toast.error("Email not sent, please try again later.");
+      }
+    } catch (err) {
+      toast.error("Something went wrong, please try again later.");
+    } finally {
+      setSpinner(false);
+    }
   };
   return (
     <div data-aos="fade-left" className="flex flex-col items-start gap-3 group">

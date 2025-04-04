@@ -10,7 +10,6 @@ import socialWebIcon from "./assets/icons/socialmedia.png";
 import landingWebIcon from "./assets/icons/landing-page.png";
 import customWebIcon from "./assets/icons/software-development.png";
 
-
 // porfolio image
 // Import all images at the top (Web Development)
 import FiveGHomesImg from "./assets/web-development-portfolio/5ghomes.png";
@@ -53,8 +52,8 @@ export { logo };
 // client details
 export const clientDetails = {
   phone: "9741878483",
-  email: "abc@xyz.com",
-  address: "#22 old airport road kodihalli",
+  email: "alphawavesolutions5@gmail.com",
+  address: "#22 Old Airport Road Kodihalli",
 };
 
 // landing page header links
